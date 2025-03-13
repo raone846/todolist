@@ -1,13 +1,22 @@
 import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
 
   const [todos, setTodos] = useState([]);
+  const [todo, setTodo] = useState({
+    userId: 1,
+    id: todos.length + 1,
+    title: "",
+  });
 
   const URL = "https://jsonplaceholder.typicode.com/todos";
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setTodos([...todos,{ ...todo, id: todos.length + 1}]);
+    setTodo({...todo, title:""});
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,6 +38,15 @@ function App() {
 
   return (
     <>
+
+      <h2>Input Todo</h2>
+      <form action="submit" onSubmit={handleSubmit}>
+        <input type='text' value={todo.title} onChange={(e) => setTodo({
+          ...todo,
+          title: e.target.value
+        })}/>
+        <button type='submit'>Submit</button>
+      </form>
         <table>
           <thead>
             <tr>
