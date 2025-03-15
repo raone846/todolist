@@ -10,6 +10,9 @@ function App() {
     title: "",
   });
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+
   const URL = "https://jsonplaceholder.typicode.com/todos";
 
   const handleSubmit = (e) => {
@@ -36,6 +39,12 @@ function App() {
 
   console.log(todos);
 
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = todos.slice(indexOfFirstItem, indexOfLastItem);
+
+  const totalPages = Math.ceil(todos.length / itemsPerPage);
+
   return (
     <>
 
@@ -56,7 +65,7 @@ function App() {
             </tr>
           </thead>
           <tbody>
-            {todos.map((todo) => (
+            {currentItems.map((todo) => (
               <tr key={todo.id}>
                 <td>{todo.userId}</td>
                 <td>{todo.id}</td>
@@ -65,6 +74,14 @@ function App() {
             ))}
           </tbody>
         </table>
+
+        {/*
+          Add pagination here
+        */}
+        <div>
+          <button onClick={() => setCurrentPage((currentPage) => Math.max(currentPage - 1, 1))}>Previous</button>
+          <button onClick={() => setCurrentPage((currentPage) => Math.min(currentPage + 1, totalPages))}>Next</button>
+        </div>
     </>
   )
 }
