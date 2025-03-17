@@ -5,8 +5,49 @@
   text-align: center;
 }
 
+input[type="text"] {
+  width: 50%;
+  padding: 12px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
 
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
 
+th, td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: center;
+}
+
+th {
+  background-color: coral;
+  color: white;
+}
+
+tr:nth-child(even) {
+  background-color: blanchedalmond;
+  color:  black;
+}
+
+tr:hover{
+  background-color: coral;
+  color: black;
+}
+
+button{
+  background-color: coral;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  margin: 20px;
+}
 
 .card {
   padding: 2em;

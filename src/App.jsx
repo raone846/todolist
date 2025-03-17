@@ -47,8 +47,7 @@ function App() {
 
   return (
     <>
-
-      <h2>Input Todo</h2>
+      <h2 style={{color:"coral"}}>Input Todo</h2>
       <form action="submit" onSubmit={handleSubmit}>
         <input type='text' value={todo.title} onChange={(e) => setTodo({
           ...todo,
@@ -80,6 +79,7 @@ function App() {
         */}
         <div>
           <button onClick={() => setCurrentPage((currentPage) => Math.max(currentPage - 1, 1))}>Previous</button>
+          <span>{currentPage}</span>
           <button onClick={() => setCurrentPage((currentPage) => Math.min(currentPage + 1, totalPages))}>Next</button>
         </div>
     </>
