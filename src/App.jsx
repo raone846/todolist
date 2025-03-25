@@ -6,7 +6,7 @@ function App() {
   const [todos, setTodos] = useState([]);
   const [todo, setTodo] = useState({
     userId: 1,
-    id: todos.length + 1,
+    id: todos.length ? Math.max(...todos.map((t) => t.id)) + 1: 1,
     title: "",
   });
 
@@ -17,9 +17,15 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setTodos([...todos,{ ...todo, id: todos.length + 1}]);
+    setTodos([...todos,{ ...todo, id: todos.length ? Math.max(...todos.map((t) => t.id)) + 1 : 1}]);
     setTodo({...todo, title:""});
   };
+
+  const handleDelete = (e) => {
+    const id = Number(e.target.getAttribute("data-id"));
+    setTodos(todos.filter((todo) => todo.id !== id));
+  };
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,7 +49,7 @@ function App() {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = todos.slice(indexOfFirstItem, indexOfLastItem);
 
-  const totalPages = Math.ceil(todos.length / itemsPerPage);
+  const totalPages = Math.max(1, Math.ceil(todos.length / itemsPerPage));
 
   return (
     <>
@@ -61,6 +67,7 @@ function App() {
               <th>UserId</th>
               <th>Id</th>
               <th>Title</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -69,6 +76,7 @@ function App() {
                 <td>{todo.userId}</td>
                 <td>{todo.id}</td>
                 <td>{todo.title}</td>
+                <td><button data-id={todo.id} onClick={handleDelete}>Delete</button></td>
               </tr>
             ))}
           </tbody>
